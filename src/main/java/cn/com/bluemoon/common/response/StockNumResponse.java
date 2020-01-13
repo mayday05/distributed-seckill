@@ -1,31 +1,30 @@
 package cn.com.bluemoon.common.response;
 
 /**
- * 
  * 活动库存
- * @author Guoqing
  *
+ * @author Guoqing
  */
 public class StockNumResponse extends BaseResponse {
-	
-	private Long stockNum;
-	
-	private Long realStockNum;
 
-	public Long getStockNum() {
-		return stockNum;
-	}
+    private Long stockNum;
 
-	public void setStockNum(Long stockNum) {
-		this.stockNum = stockNum;
-	}
+    private Long realStockNum;
 
-	public Long getRealStockNum() {
-		return realStockNum;
-	}
+    public Long getStockNum() {
+        return stockNum;
+    }
 
-	public void setRealStockNum(Long realStockNum) {
-		this.realStockNum = realStockNum;
-	}
+    public void setStockNum(Long stockNum) {
+        this.stockNum = stockNum;
+    }
+
+    public Long getRealStockNum() {
+        return realStockNum;
+    }
+
+    public void setRealStockNum(Long realStockNum) {
+        this.realStockNum = realStockNum;
+    }
 
 }

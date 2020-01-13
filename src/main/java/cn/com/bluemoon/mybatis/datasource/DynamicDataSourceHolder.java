@@ -10,7 +10,7 @@ public final class DynamicDataSourceHolder {
     /**
      * 动态数据源存储
      */
-    private static final ThreadLocal<DynamicDataSourceGlobal> DYNAMIC_DATA_SOURCE_GLOBAL_THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<DynamicDataSourceGlobal> DYNAMIC_DATA_SOURCE_GLOBAL_THREAD_LOCAL = new ThreadLocal<DynamicDataSourceGlobal>();
 
     private DynamicDataSourceHolder() {
         //

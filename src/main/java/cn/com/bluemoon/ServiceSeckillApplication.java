@@ -7,10 +7,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* <p>Title: ServiceSeckillApplication</p>  
-* <p>Description: seckill service服务启动类</p>  
-* @author Guoqing  
-* @date 2018年7月2日
+ * <p>Title: ServiceSeckillApplication</p>
+ * <p>Description: seckill service服务启动类</p>
+ *
+ * @author Guoqing
+ * @date 2018年7月2日
  */
 @Configuration
 @RestController
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServiceSeckillApplication {
 
 
-	public static void main( String[] args ){
-    	SpringApplication.run(ServiceSeckillApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(ServiceSeckillApplication.class, args);
     }
-	
+
 }

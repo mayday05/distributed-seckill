@@ -24,9 +24,9 @@ import java.util.concurrent.locks.Lock;
 public class DistributedExclusiveRedisLock implements Lock, Serializable {
     private static final long serialVersionUID = -7118885188373628439L;
 
-	private RedisTemplate redisTemplate;
-	
-	private Jedis jedis;
+    private RedisTemplate redisTemplate;
+
+    private Jedis jedis;
 
     /**
      * 控制锁颗粒度的参数
@@ -34,7 +34,7 @@ public class DistributedExclusiveRedisLock implements Lock, Serializable {
      * 不建议使用全局锁,具体应用中推荐指定对应的Key,把锁的颗粒度减小,利于性能
      */
     private String lockKey = "distributed_global_lock";
-    
+
     private static final String LOCK_SUCCESS = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
     private static final String SET_WITH_EXPIRE_TIME = "EX";
@@ -62,7 +62,7 @@ public class DistributedExclusiveRedisLock implements Lock, Serializable {
      * 获取锁方法,获取不到会被阻塞
      */
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public void lock() {
         if (isOccupy) {
             throw new IllegalReentrantException("锁不可重入,请检查代码");
@@ -76,11 +76,11 @@ public class DistributedExclusiveRedisLock implements Lock, Serializable {
                 public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
                     /*return connection.setNX(lockKey.getBytes(), uuid.getBytes())
                             && connection.expire(lockKey.getBytes(), expires);*/
-                	/**
-                	 * 更新了1.0版本中，setnx成功之后程序崩溃导致的死锁的问题
-                	 */
-                	String result = jedis.set(lockKey, uuid, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expires);
-                	if (LOCK_SUCCESS.equals(result)) {
+                    /**
+                     * 更新了1.0版本中，setnx成功之后程序崩溃导致的死锁的问题
+                     */
+                    String result = jedis.set(lockKey, uuid, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expires);
+                    if (LOCK_SUCCESS.equals(result)) {
                         return true;
                     }
                     return false;
@@ -119,15 +119,15 @@ public class DistributedExclusiveRedisLock implements Lock, Serializable {
      * <p>
      * 超时后的资源被释放掉,避免误删,这里务必校验uuid
      */
-	@Override
+    @Override
     public void unlock() {
-    	if (!isOccupy)
+        if (!isOccupy)
             return;
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
         Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(uuid));
 
         if (RELEASE_SUCCESS.equals(result)) {
-        	isOccupy = false;
+            isOccupy = false;
         }
     }
 

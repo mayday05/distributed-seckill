@@ -8,32 +8,33 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * redisson配置类
+ *
  * @author Guoqing.Lee
  * @date 2019年1月23日 下午3:01:39
- *
  */
+
 /**
  * @author Guoqing.Lee
  * @date 2019年1月24日 上午11:33:48
- * 
+ *
  */
 @Configuration
-@ConfigurationProperties(prefix="spring.redis")
+@ConfigurationProperties(prefix = "spring.redis")
 public class RedissonProperties {
-	
-	private int timeout;
+
+    private int timeout;
 
     private String host;
-    
+
     private String port;
 
     private String password;
-    
+
     private int database = 0;
 
     private int connectionPoolSize = 64;
-    
-    private int connectionMinimumIdleSize=10;
+
+    private int connectionMinimumIdleSize = 10;
 
     private int slaveConnectionPoolSize = 250;
 
@@ -42,103 +43,103 @@ public class RedissonProperties {
     private String[] sentinelAddresses;
 
     private String masterName;
-    
-    private Map<String, String> cluster = new HashMap<>();
 
-	public int getTimeout() {
-		return timeout;
-	}
+    private Map<String, String> cluster = new HashMap<String, String>();
 
-	public void setTimeout(int timeout) {
-		this.timeout = timeout;
-	}
+    public int getTimeout() {
+        return timeout;
+    }
 
-	public String getHost() {
-		return host;
-	}
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
 
-	public void setHost(String host) {
-		this.host = host;
-	}
+    public String getHost() {
+        return host;
+    }
 
-	public String getPort() {
-		return port;
-	}
+    public void setHost(String host) {
+        this.host = host;
+    }
 
-	public void setPort(String port) {
-		this.port = port;
-	}
+    public String getPort() {
+        return port;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setPort(String port) {
+        this.port = port;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public int getDatabase() {
-		return database;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setDatabase(int database) {
-		this.database = database;
-	}
+    public int getDatabase() {
+        return database;
+    }
 
-	public int getConnectionPoolSize() {
-		return connectionPoolSize;
-	}
+    public void setDatabase(int database) {
+        this.database = database;
+    }
 
-	public void setConnectionPoolSize(int connectionPoolSize) {
-		this.connectionPoolSize = connectionPoolSize;
-	}
+    public int getConnectionPoolSize() {
+        return connectionPoolSize;
+    }
 
-	public int getConnectionMinimumIdleSize() {
-		return connectionMinimumIdleSize;
-	}
+    public void setConnectionPoolSize(int connectionPoolSize) {
+        this.connectionPoolSize = connectionPoolSize;
+    }
 
-	public void setConnectionMinimumIdleSize(int connectionMinimumIdleSize) {
-		this.connectionMinimumIdleSize = connectionMinimumIdleSize;
-	}
+    public int getConnectionMinimumIdleSize() {
+        return connectionMinimumIdleSize;
+    }
 
-	public int getSlaveConnectionPoolSize() {
-		return slaveConnectionPoolSize;
-	}
+    public void setConnectionMinimumIdleSize(int connectionMinimumIdleSize) {
+        this.connectionMinimumIdleSize = connectionMinimumIdleSize;
+    }
 
-	public void setSlaveConnectionPoolSize(int slaveConnectionPoolSize) {
-		this.slaveConnectionPoolSize = slaveConnectionPoolSize;
-	}
+    public int getSlaveConnectionPoolSize() {
+        return slaveConnectionPoolSize;
+    }
 
-	public int getMasterConnectionPoolSize() {
-		return masterConnectionPoolSize;
-	}
+    public void setSlaveConnectionPoolSize(int slaveConnectionPoolSize) {
+        this.slaveConnectionPoolSize = slaveConnectionPoolSize;
+    }
 
-	public void setMasterConnectionPoolSize(int masterConnectionPoolSize) {
-		this.masterConnectionPoolSize = masterConnectionPoolSize;
-	}
+    public int getMasterConnectionPoolSize() {
+        return masterConnectionPoolSize;
+    }
 
-	public String[] getSentinelAddresses() {
-		return sentinelAddresses;
-	}
+    public void setMasterConnectionPoolSize(int masterConnectionPoolSize) {
+        this.masterConnectionPoolSize = masterConnectionPoolSize;
+    }
 
-	public void setSentinelAddresses(String sentinelAddresses) {
-		this.sentinelAddresses = sentinelAddresses.split(",");
-	}
+    public String[] getSentinelAddresses() {
+        return sentinelAddresses;
+    }
 
-	public String getMasterName() {
-		return masterName;
-	}
+    public void setSentinelAddresses(String sentinelAddresses) {
+        this.sentinelAddresses = sentinelAddresses.split(",");
+    }
 
-	public void setMasterName(String masterName) {
-		this.masterName = masterName;
-	}
+    public String getMasterName() {
+        return masterName;
+    }
 
-	public Map<String, String> getCluster() {
-		return cluster;
-	}
+    public void setMasterName(String masterName) {
+        this.masterName = masterName;
+    }
 
-	public void setCluster(Map<String, String> cluster) {
-		this.cluster = cluster;
-	}
-	
+    public Map<String, String> getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(Map<String, String> cluster) {
+        this.cluster = cluster;
+    }
+
 }

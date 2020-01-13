@@ -27,7 +27,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
             throw new IllegalArgumentException("Property 'writeDataSource' is required");
         }
         setDefaultTargetDataSource(writeDataSource);
-        Map<Object, Object> targetDataSources = new HashMap<>();
+        Map<Object, Object> targetDataSources = new HashMap<Object, Object>();
         targetDataSources.put(DynamicDataSourceGlobal.WRITE.name(), writeDataSource);
         if (readDataSource != null) {
             targetDataSources.put(DynamicDataSourceGlobal.READ.name(), readDataSource);
@@ -42,7 +42,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
         DynamicDataSourceGlobal dynamicDataSourceGlobal = DynamicDataSourceHolder.getDataSource();
 
         if (dynamicDataSourceGlobal == null
-            || dynamicDataSourceGlobal == DynamicDataSourceGlobal.WRITE) {
+                || dynamicDataSourceGlobal == DynamicDataSourceGlobal.WRITE) {
             return DynamicDataSourceGlobal.WRITE.name();
         }
 

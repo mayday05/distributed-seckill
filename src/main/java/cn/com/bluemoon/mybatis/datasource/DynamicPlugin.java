@@ -27,11 +27,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author mij
  */
 @Intercepts({
-    @Signature(type = Executor.class, method = "update", args = {
-        MappedStatement.class, Object.class}),
-    @Signature(type = Executor.class, method = "query", args = {
-        MappedStatement.class, Object.class, RowBounds.class,
-        ResultHandler.class})})
+        @Signature(type = Executor.class, method = "update", args = {
+                MappedStatement.class, Object.class}),
+        @Signature(type = Executor.class, method = "query", args = {
+                MappedStatement.class, Object.class, RowBounds.class,
+                ResultHandler.class})})
 public class DynamicPlugin implements Interceptor {
 
     /**
@@ -47,7 +47,7 @@ public class DynamicPlugin implements Interceptor {
     /**
      * 动态数据源缓存
      */
-    private static final Map<String, DynamicDataSourceGlobal> CACHE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, DynamicDataSourceGlobal> CACHE_MAP = new ConcurrentHashMap<String, DynamicDataSourceGlobal>();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

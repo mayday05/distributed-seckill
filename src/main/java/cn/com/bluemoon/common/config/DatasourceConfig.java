@@ -86,8 +86,8 @@ public class DatasourceConfig {
     @Bean
     @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
     public SqlSessionFactory dynamicSqlSessionFactory(
-        @Qualifier("dynamicDataSource") DataSource dynamicDataSource,
-        MybatisProperties properties) {
+            @Qualifier("dynamicDataSource") DataSource dynamicDataSource,
+            MybatisProperties properties) {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dynamicDataSource);
         sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(properties.getConfigLocation()));
@@ -98,5 +98,4 @@ public class DatasourceConfig {
             throw new WebException(WebExceptionEnum.SERVER_ERROR);
         }
     }
-
 }

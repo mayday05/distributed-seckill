@@ -179,7 +179,7 @@ public class RedisRepository {
      */
     public byte[] get(final byte[] key) {
         byte[] result = redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.get(key));
-       // LOGGER.info("[redisTemplate redis]取出 缓存  url:{} ", key);
+        // LOGGER.info("[redisTemplate redis]取出 缓存  url:{} ", key);
         return result;
     }
 
@@ -196,7 +196,7 @@ public class RedisRepository {
             byte[] values = connection.get(keys);
             return serializer.deserialize(values);
         });
-       // LOGGER.info("[redisTemplate redis]取出 缓存  url:{} ", key);
+        // LOGGER.info("[redisTemplate redis]取出 缓存  url:{} ", key);
         return resultStr;
     }
 
@@ -357,42 +357,45 @@ public class RedisRepository {
             return connection.incr(redisSerializer.serialize(key));
         });
     }
-    
+
     /**
      * 对某个主键对应的值减一，value值必须是全数字的字符串
-     * <p>Title: decr</p>  
-     * <p>Description: </p>  
+     * <p>Title: decr</p>
+     * <p>Description: </p>
+     *
      * @param key
      * @return
      */
     public long decr(final String key) {
-    	return redisTemplate.execute((RedisCallback<Long>) connection -> {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> {
             RedisSerializer<String> redisSerializer = getRedisSerializer();
             return connection.decr(redisSerializer.serialize(key));
         });
     }
-    
+
     /**
      * 自增指定的长度
+     *
      * @param key
      * @param increment
      * @return
      */
     public long incrBy(final String key, long increment) {
-    	return redisTemplate.execute((RedisCallback<Long>) connection -> {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> {
             RedisSerializer<String> redisSerializer = getRedisSerializer();
             return connection.incrBy(redisSerializer.serialize(key), increment);
         });
     }
-    
+
     /**
      * 自减指定的长度
+     *
      * @param key
      * @param decrement
      * @return
      */
     public long decrBy(final String key, long decrement) {
-    	return redisTemplate.execute((RedisCallback<Long>) connection -> {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> {
             RedisSerializer<String> redisSerializer = getRedisSerializer();
             return connection.decrBy(redisSerializer.serialize(key), decrement);
         });
