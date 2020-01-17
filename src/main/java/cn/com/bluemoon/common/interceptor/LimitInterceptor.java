@@ -15,8 +15,6 @@ import cn.com.bluemoon.common.exception.WebExceptionEnum;
 
 /**
  * Guava 限流器
- *
- * @author Guoqing
  */
 public class LimitInterceptor extends HandlerInterceptorAdapter {
 

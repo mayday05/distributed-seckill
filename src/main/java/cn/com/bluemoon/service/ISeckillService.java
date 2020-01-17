@@ -12,19 +12,15 @@ package cn.com.bluemoon.service;
 import cn.com.bluemoon.common.response.SeckillInfoResponse;
 
 /**
- * <p>Title: ISeckillService</p>
- * <p>Description: 秒杀相关方法</p>
- * @author Guoqing
- * @date 2018年8月10日
+ * ISeckillService
  */
 public interface ISeckillService {
 
     /**
      * 秒杀处理主要逻辑
-     * <p>Title: startSeckill</p>
-     * <p>Description: </p>
-     * @param stallActivityId
-     * @param purchaseNum
+     *
+     * @param stallActivityId 活动ID
+     * @param purchaseNum 付款码
      * @param openId
      * @param formId
      * @param addressId
@@ -35,6 +31,7 @@ public interface ISeckillService {
 
     /**
      * 判断秒杀活动是否已经开始
+     *
      * @param stallActivityId
      * @return
      */

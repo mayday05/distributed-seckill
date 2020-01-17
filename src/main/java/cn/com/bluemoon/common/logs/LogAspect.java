@@ -19,9 +19,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * 统一日志处理
- *
- * @author Guoqing.Lee
- * @date 2019年1月3日 上午11:29:13
  */
 @Aspect
 @Component
@@ -34,6 +31,7 @@ public class LogAspect {
 
     @Pointcut("execution(public * cn.com.bluemoon.controller.*.*(..))")
     public void logPointCut() {
+
     }
 
     /**
@@ -46,9 +44,11 @@ public class LogAspect {
         startTime.set(System.currentTimeMillis());
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
+
         String url = request.getRequestURL().toString();
         String httpMethod = request.getMethod();
         String ip = getIpAddr(request);
+
         String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
         String parameters = Arrays.toString(joinPoint.getArgs());
         logger.info("REQUEST URL:" + url + " | HTTP METHOD: " + httpMethod + " | IP: " + ip + " | CLASS_METHOD: " + classMethod
@@ -62,6 +62,7 @@ public class LogAspect {
      */
     @After("logPointCut()")
     public void doAfter(JoinPoint joinPoint) {
+
     }
 
     /**

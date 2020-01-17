@@ -1,28 +1,30 @@
-/**
- * <p>Title: SeckillResponse.java</p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2018</p>
- * <p>Company: www.bluemoon.com</p>
- *
- * @author Guoqing
- * @date 2018年8月10日
- */
 package cn.com.bluemoon.common.response;
 
-import cn.com.bluemoon.common.response.BaseResponse;
 
 /**
- * <p>Title: SeckillResponse</p>
- * <p>Description: </p>
- * @author Guoqing
- * @date 2018年8月10日
+ * Title: SeckillResponse
  */
 public class SeckillInfoResponse extends BaseResponse {
 
-    private int refreshTime;    //下一次请求刷新时间
-    private long orderId;        //订单ID
-    private String orderCode;    //订单编码
-    private String orderQualificationCode;  //下单资格码
+    /**
+     * 下一次请求刷新时间
+     */
+    private int refreshTime;
+
+    /**
+     * 订单ID
+     */
+    private long orderId;
+
+    /**
+     * 订单编码
+     */
+    private String orderCode;
+
+    /**
+     * 下单资格码
+     */
+    private String orderQualificationCode;
 
     /**
      * @return the refreshTime
@@ -73,6 +75,4 @@ public class SeckillInfoResponse extends BaseResponse {
     public void setOrderQualificationCode(String orderQualificationCode) {
         this.orderQualificationCode = orderQualificationCode;
     }
-
-
 }

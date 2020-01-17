@@ -20,7 +20,7 @@ spring:
   ## kafka集群配置
   kafka:
     bootstrap-servers:
-      - 192.168.147.220:9092
+      - 192.168.163.2:31707
 #      - 192.168.240.43:9092
 #      - 192.168.240.44:9092
     consumer:
@@ -35,10 +35,10 @@ spring:
 
   ## redis数据源配置
   redis:
-    database: 0
+    database: 0  #Redis 数据库号，默认为 0
     port: 36379
-    password: Mon56BuEcXzZ
-    timeout: 3000
+    # password: Mon56BuEcXzZ # Redis服务器密码，默认为空。生产中，一定要设置 Redis 密码！
+    timeout: 3000 # Redis连接超时时间，单位：毫秒。
     host: 192.168.147.220
     #    cluster:
     #      nodes: 192.168.234.18:6579,192.168.234.28:6579,192.168.234.29:6579,192.168.234.30:6579,192.168.234.6:6579,192.168.234.43:6579

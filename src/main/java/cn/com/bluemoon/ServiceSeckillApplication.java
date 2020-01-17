@@ -7,11 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>Title: ServiceSeckillApplication</p>
- * <p>Description: seckill service服务启动类</p>
- *
- * @author Guoqing
- * @date 2018年7月2日
+ * seckill service服务启动类</p>
  */
 @Configuration
 @RestController

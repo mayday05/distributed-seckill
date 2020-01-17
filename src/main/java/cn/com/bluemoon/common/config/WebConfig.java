@@ -9,10 +9,11 @@ import cn.com.bluemoon.common.interceptor.LimitInterceptor;
 @Component
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //多个拦截器组成一个拦截器链
-        registry.addInterceptor(new LimitInterceptor(1000, LimitInterceptor.LimitType.DROP)).addPathPatterns("/**");
+        registry.addInterceptor(new LimitInterceptor(1000, LimitInterceptor.LimitType.DROP))
+                .addPathPatterns("/**");
         super.addInterceptors(registry);
     }
-
 }

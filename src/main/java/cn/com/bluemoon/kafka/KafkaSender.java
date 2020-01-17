@@ -6,9 +6,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 生产者
- *
- * @author Guoqing
- * @date 2018/11/16 15:09
  */
 @Component
 public class KafkaSender {

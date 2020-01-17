@@ -36,11 +36,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * Title: SeckillApiController
  * Description: 秒杀相关接口
- *
- * @author Guoqing
- * @date 2018年8月10日
  */
 @Api(tags = "分布式秒杀")
 @RestController
@@ -72,6 +68,8 @@ public class SeckillController {
         int stockNum = jsonObject.containsKey("stockNum") ? jsonObject.getInteger("stockNum") : 0;
         int stallActivityId = jsonObject.containsKey("stallActivityId") ? jsonObject.getInteger("stallActivityId") : -1;
         AssertUtil.isTrue(stallActivityId != -1, "非法参数");
+
+        // 设置Redis中存储数量
         redisRepository.incrBy("BM_MARKET_SECKILL_STOCKNUM_" + stallActivityId, stockNum);
         redisRepository.incrBy("BM_MARKET_SECKILL_REAL_STOCKNUM_" + stallActivityId, stockNum);
 
@@ -88,8 +86,10 @@ public class SeckillController {
     @RequestMapping(value = "/getStockNum", method = RequestMethod.POST)
     public StockNumResponse getStockNum(@RequestBody JSONObject jsonObject) {
         StockNumResponse response = new StockNumResponse();
+
         int stallActivityId = jsonObject.containsKey("stallActivityId") ? jsonObject.getInteger("stallActivityId") : -1;
         AssertUtil.isTrue(stallActivityId != -1, "非法参数");
+
         String stockNum = redisRepository.get("BM_MARKET_SECKILL_STOCKNUM_" + stallActivityId);
         String realStockNum = redisRepository.get("BM_MARKET_SECKILL_REAL_STOCKNUM_" + stallActivityId);
         response.setStockNum(Long.parseLong(stockNum));
@@ -98,10 +98,8 @@ public class SeckillController {
     }
 
     /**
-     * 06.04-去秒杀，创建秒杀订单
+     * 去秒杀，创建秒杀订单
      * 通过分布式锁的方式控制，控制库存不超卖
-     * <p>Title: testSeckill</p>
-     * <p>Description: 秒杀下单</p>
      *
      * @param jsonObject
      * @return
@@ -111,14 +109,19 @@ public class SeckillController {
     public SeckillInfoResponse goSeckill(@RequestBody JSONObject jsonObject) {
         int stallActivityId = jsonObject.containsKey("stallActivityId") ? jsonObject.getInteger("stallActivityId") : -1;        //活动Id
         AssertUtil.isTrue(stallActivityId != -1, "非法參數");
-        int purchaseNum = jsonObject.containsKey("purchaseNum") ? jsonObject.getInteger("purchaseNum") : 1;        //购买数量
+
+        int purchaseNum = jsonObject.containsKey("purchaseNum") ? jsonObject.getInteger("purchaseNum") : 1; //购买数量
         AssertUtil.isTrue(purchaseNum != -1, "非法參數");
+
         String openId = jsonObject.containsKey("openId") ? jsonObject.getString("openId") : null;
         AssertUtil.isTrue(!StringUtil.isEmpty(openId), 1101, "非法參數");
+
         String formId = jsonObject.containsKey("formId") ? jsonObject.getString("formId") : null;
         AssertUtil.isTrue(!StringUtil.isEmpty(formId), 1101, "非法參數");
+
         long addressId = jsonObject.containsKey("addressId") ? jsonObject.getLong("addressId") : -1;
         AssertUtil.isTrue(addressId != -1, "非法參數");
+
         //通过分享入口进来的参数
         String shareCode = jsonObject.getString("shareCode");
         String shareSource = jsonObject.getString("shareSource");
@@ -192,8 +195,6 @@ public class SeckillController {
 
     /**
      * 06.05-轮询请求当前用户是否秒杀下单成功
-     * <p>Title: seckillPolling</p>
-     * <p>Description: </p>
      *
      * @param jsonObject
      * @return

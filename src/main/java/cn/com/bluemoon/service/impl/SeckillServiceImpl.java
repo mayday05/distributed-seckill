@@ -1,12 +1,3 @@
-/**
- * <p>Title: SeckillServiceImpl.java</p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2018</p>
- * <p>Company: www.bluemoon.com</p>
- *
- * @author Guoqing
- * @date 2018年8月10日
- */
 package cn.com.bluemoon.service.impl;
 
 import org.slf4j.Logger;
@@ -24,10 +15,7 @@ import cn.com.bluemoon.redis.repository.RedisRepository;
 import cn.com.bluemoon.service.ISeckillService;
 
 /**
- * <p>Title: SeckillServiceImpl</p>
- * <p>Description: </p>
- * @author Guoqing
- * @date 2018年8月10日
+ * Title: SeckillServiceImpl
  */
 @Service
 public class SeckillServiceImpl implements ISeckillService {
@@ -41,12 +29,19 @@ public class SeckillServiceImpl implements ISeckillService {
 
     private Logger logger = LoggerFactory.getLogger(SeckillServiceImpl.class);
 
+
     @Override
     @Transactional
-    public SeckillInfoResponse startSeckill(int stallActivityId, int purchaseNum, String openId, String formId, long addressId,
-                                            String shareCode, String shareSource, String userCode) {
+    public SeckillInfoResponse startSeckill(int stallActivityId,
+                                            int purchaseNum,
+                                            String openId,
+                                            String formId,
+                                            long addressId,
+                                            String shareCode,
+                                            String shareSource,
+                                            String userCode) {
         SeckillInfoResponse response = new SeckillInfoResponse();
-        //判断秒杀活动是否开始
+        // 判断秒杀活动是否开始
         if (!checkStartSeckill(stallActivityId)) {
             response.setIsSuccess(false);
             response.setResponseCode(6205);
@@ -59,7 +54,7 @@ public class SeckillServiceImpl implements ISeckillService {
         try {
             redissonDistributedLocker.lock(lockKey, 2L);
             logger.info("获取到锁资源...");
-            //做用户重复购买校验
+            // 做用户重复购买校验
             if (redisRepository.exists("BM_MARKET_SECKILL_LIMIT_" + stallActivityId + "_" + openId)) {
                 logger.info("已经检测到用户重复购买...");
                 response.setIsSuccess(false);
@@ -69,10 +64,10 @@ public class SeckillServiceImpl implements ISeckillService {
             } else {
                 String redisStock = redisRepository.get("BM_MARKET_SECKILL_STOCKNUM_" + stallActivityId);
                 int surplusStock = Integer.parseInt(redisStock == null ? "0" : redisStock);    //剩余库存
-                //如果剩余库存大于购买数量，则进入消费队列
+                // 如果剩余库存大于购买数量，则进入消费队列
                 if (surplusStock >= purchaseNum) {
                     try {
-                        //锁定库存，并将请求放入消费队列
+                        // 锁定库存，并将请求放入消费队列
                         redisRepository.decrBy("BM_MARKET_SECKILL_STOCKNUM_" + stallActivityId, purchaseNum);
                         JSONObject jsonStr = new JSONObject();
                         jsonStr.put("stallActivityId", stallActivityId);
@@ -83,12 +78,12 @@ public class SeckillServiceImpl implements ISeckillService {
                         jsonStr.put("shareCode", shareCode);
                         jsonStr.put("shareSource", shareSource);
                         jsonStr.put("userCode", userCode);
-                        //放入kafka消息队列
+                        // 放入kafka消息队列
                         kafkaSender.sendChannelMess("demo_seckill", jsonStr.toString());
-//						messageQueueService.sendMessage("bm_market_seckill", jsonStr.toString(), true);
-                        //此处还应该标记一个seckillId和openId的唯一标志来给轮询接口判断请求是否已经处理完成，需要在下单完成之后去维护删除该标志，并且创建一个新的标志，并存放orderId
+                        // messageQueueService.sendMessage("bm_market_seckill", jsonStr.toString(), true);
+                        // 此处还应该标记一个seckillId和openId的唯一标志来给轮询接口判断请求是否已经处理完成，需要在下单完成之后去维护删除该标志，并且创建一个新的标志，并存放orderId
                         redisRepository.set("BM_MARKET_LOCK_POLLING_" + stallActivityId + "_" + openId, "true");
-                        //维护一个key，防止用户在该活动重复购买，当支付过期之后应该维护删除该标志
+                        // 维护一个key，防止用户在该活动重复购买，当支付过期之后应该维护删除该标志
                         redisRepository.setExpire("BM_MARKET_SECKILL_LIMIT_" + stallActivityId + "_" + openId, "true", 3600 * 24 * 7);
 
                         response.setIsSuccess(true);
@@ -103,7 +98,7 @@ public class SeckillServiceImpl implements ISeckillService {
                         response.setRefreshTime(0);
                     }
                 } else {
-                    //需要在消费端维护一个真实的库存损耗值，用来显示是否还有未完成支付的用户
+                    // 需要在消费端维护一个真实的库存损耗值，用来显示是否还有未完成支付的用户
                     String redisRealStock = redisRepository.get("BM_MARKET_SECKILL_REAL_STOCKNUM_" + stallActivityId);
                     int realStock = Integer.parseInt(redisRealStock == null ? "0" : redisRealStock);    //剩余的真实库存
                     if (realStock > 0) {
@@ -134,15 +129,15 @@ public class SeckillServiceImpl implements ISeckillService {
 
     /**
      * 判断秒杀活动是否已经开始
-     * <p>Title: checkStartSeckill</p>
-     * <p>Description: </p>
+     *
      * @param stallActivityId
      * @return
      */
     @Override
     public boolean checkStartSeckill(int stallActivityId) {
-        //此处已经省略了业务代码，良好的操作时应该将秒杀活动的开始时间在新增/编辑主数据的是维护到redis中，并维护好key值，此处取出，然后做出判断
-        //默认为开始了
+        // 此处已经省略了业务代码，良好的操作时应该将秒杀活动的开始时间在新增/编辑主数据的是维护到redis中，
+        // 并维护好key值，此处取出，然后做出判断
+        // 默认为开始了
         return true;
     }
 

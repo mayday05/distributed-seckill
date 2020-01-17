@@ -5,8 +5,6 @@ import java.util.logging.Level;
 
 /**
  * 断言异常类
- *
- * @author Guoqing
  */
 public class AssertException extends RuntimeException {
     /**

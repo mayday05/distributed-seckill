@@ -2,8 +2,6 @@ package cn.com.bluemoon.common.exception;
 
 /**
  * 对于不可重入的锁将抛出此异常
- * <p>
- * Created by Guoqing on 16/8/25.
  */
 public class IllegalReentrantException extends RuntimeException {
 

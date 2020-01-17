@@ -5,13 +5,11 @@ import java.util.concurrent.TimeUnit;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
  * 基于Redisson的分布式锁实现
- *
- * @author Guoqing.Lee
- * @date 2019年1月23日 下午4:04:57
  */
 @Component
 public class RedissonDistributedLocker {

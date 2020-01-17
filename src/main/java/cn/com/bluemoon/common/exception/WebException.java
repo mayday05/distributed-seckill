@@ -2,9 +2,6 @@ package cn.com.bluemoon.common.exception;
 
 /**
  * 封装异常
- *
- * @author Guoqing
- * @Date 2018/06/28 下午10:32
  */
 public class WebException extends RuntimeException {
 
@@ -43,6 +40,4 @@ public class WebException extends RuntimeException {
     public void setResponseMsg(String responseMsg) {
         this.responseMsg = responseMsg;
     }
-
-
 }

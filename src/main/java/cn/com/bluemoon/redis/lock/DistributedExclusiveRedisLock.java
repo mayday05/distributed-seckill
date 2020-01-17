@@ -17,8 +17,7 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * 不可重入分布式锁,基于redis实现
- * <p>
- * Created by Guoqing on 18/11/22.
+ *
  * 变更了加锁与释放锁的过程，通过jedis的操作实现，防止出现死锁等问题
  */
 public class DistributedExclusiveRedisLock implements Lock, Serializable {
@@ -30,7 +29,7 @@ public class DistributedExclusiveRedisLock implements Lock, Serializable {
 
     /**
      * 控制锁颗粒度的参数
-     * <p>
+     *
      * 不建议使用全局锁,具体应用中推荐指定对应的Key,把锁的颗粒度减小,利于性能
      */
     private String lockKey = "distributed_global_lock";

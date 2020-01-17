@@ -19,13 +19,21 @@ public class SwaggerConfig {
 
     @Bean
     public Docket userApi() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("秒杀案例").apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("cn.com.bluemoon.controller")).paths(PathSelectors.any()).build();
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("秒杀案例")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("cn.com.bluemoon.controller"))
+                .paths(PathSelectors.any())
+                .build();
     }
 
     // 预览地址:swagger-ui.html
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("SpringBoot 中使用Swagger2构建文档").termsOfServiceUrl("https://blog.52itstyle.com")
-                .contact(new Contact("Guoqing ", "http://www.cnblogs.com/ocean-sky/", "514471352@qq.com")).version("1.0").build();
+        return new ApiInfoBuilder()
+                .title("SpringBoot 中使用Swagger2构建文档")
+                .termsOfServiceUrl("https://blog.52itstyle.com")
+                .contact(new Contact("Guoqing ", "http://www.cnblogs.com/ocean-sky/", "514471352@qq.com"))
+                .version("1.0").build();
     }
 }

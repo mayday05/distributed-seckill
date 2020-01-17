@@ -22,14 +22,12 @@ import javax.sql.DataSource;
 
 /**
  * 数据源配置
- *
- * @author Guoqing
  */
 @Configuration
 public class DatasourceConfig {
 
     /**
-     * Write data source druid data source.
+     * 写操作
      *
      * @return the druid data source
      */
@@ -41,7 +39,7 @@ public class DatasourceConfig {
     }
 
     /**
-     * Read data source druid data source.
+     * 读操作
      *
      * @return the druid data source
      */
@@ -52,7 +50,7 @@ public class DatasourceConfig {
     }
 
     /**
-     * Dynamic data source data source.
+     * 动态数据源
      *
      * @return the data source
      */
@@ -66,18 +64,19 @@ public class DatasourceConfig {
     }
 
     /**
-     * Dynamic transaction manager data source transaction manager.
+     * 动态数据源事务管理器
      *
      * @param dynamicDataSource the dynamic data source
      * @return the data source transaction manager
      */
     @Bean(name = "dynamicTransactionManager")
-    public DataSourceTransactionManager dynamicTransactionManager(@Qualifier("dynamicDataSource") DataSource dynamicDataSource) {
+    public DataSourceTransactionManager dynamicTransactionManager(
+            @Qualifier("dynamicDataSource") DataSource dynamicDataSource) {
         return new DynamicDataSourceTransactionManager(dynamicDataSource);
     }
 
     /**
-     * Dynamic sql session factory sql session factory.
+     * 动态SQL session工厂类
      *
      * @param dynamicDataSource the dynamic data source
      * @param properties        the properties

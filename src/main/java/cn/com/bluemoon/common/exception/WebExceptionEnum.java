@@ -2,9 +2,6 @@ package cn.com.bluemoon.common.exception;
 
 /**
  * 异常枚举
- *
- * @author Guoqing
- * @Date 2018/06/28 下午10:33
  */
 public enum WebExceptionEnum implements ServiceExceptionEnum {
 
@@ -40,6 +37,7 @@ public enum WebExceptionEnum implements ServiceExceptionEnum {
 
     private String responseMsg;
 
+    @Override
     public Boolean getIsSuccess() {
         return isSuccess;
     }
@@ -48,6 +46,7 @@ public enum WebExceptionEnum implements ServiceExceptionEnum {
         this.isSuccess = isSuccess;
     }
 
+    @Override
     public Integer getResponseCode() {
         return responseCode;
     }
@@ -56,6 +55,7 @@ public enum WebExceptionEnum implements ServiceExceptionEnum {
         this.responseCode = responseCode;
     }
 
+    @Override
     public String getResponseMsg() {
         return responseMsg;
     }
